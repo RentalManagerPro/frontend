@@ -1,4 +1,3 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
   DefaultTheme,
@@ -31,7 +30,6 @@ init();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../fonts/SpaceMono-Regular.ttf"),
-    ...FontAwesome.font,
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
