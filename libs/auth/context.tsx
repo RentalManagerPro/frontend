@@ -1,15 +1,17 @@
 import { AuthUser } from "aws-amplify/auth";
 import React from "react";
 import { useAuthSession } from "../aws-amplify/useAuthSession";
-import { signIn, signOut } from "./sign-in";
+import { signIn, signOut, signUp } from "./sign-in";
 
 const AuthContext = React.createContext<{
   signIn: (username: string, password: string) => void;
+  signUp: (username: string, password: string) => void;
   signOut: () => void;
   session?: AuthUser | null;
   isLoading: boolean;
 }>({
   signIn: () => null,
+  signUp: () => null,
   signOut: () => null,
   session: null,
   isLoading: false,
@@ -48,6 +50,11 @@ export function SessionProvider(props: React.PropsWithChildren) {
               if (authSession) setUserSession(authSession);
             }
           }
+          setIsLoading(false);
+        },
+        signUp: async (username, password) => {
+          setIsLoading(true);
+          await signUp(username, password);
           setIsLoading(false);
         },
         signOut: async () => {

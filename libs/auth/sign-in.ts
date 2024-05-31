@@ -30,3 +30,19 @@ export const signOut = async () => {
     console.log("error signing out", error);
   }
 };
+
+/**
+ * Sign up the user with the provided username and password.
+ *
+ * @param {string} username - The username of the user.
+ * @param {string} password - The password of the user.
+ * @return {Promise<void>} A promise that resolves when the user is signed up.
+ * @throws {Error} If there is an error signing up the user.
+ */
+export const signUp = async (username: string, password: string) => {
+  try {
+    return await Auth.signUp({ username, password });
+  } catch (error) {
+    throw error;
+  }
+};
