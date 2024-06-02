@@ -17,8 +17,8 @@ export default function SignIn() {
     formState: { errors },
   } = useForm<CredentialsType>({
     defaultValues: {
-      username: "bartlomiej.mikolajczuk+test@outlook.com",
-      password: "Password!23",
+      username: "",
+      password: "",
     },
     resolver: zodResolver(credentialsSchema),
   });
