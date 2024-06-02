@@ -46,7 +46,7 @@ export default function SignIn() {
       />
       <View className="flex flex-col items-center justify-center mt-2">
         <Text className="text-center">
-          Already have an account?{" "}
+          Don't have an account?{" "}
           <StyledLink href="/sign-up" label="Sign up" />
         </Text>
       </View>
