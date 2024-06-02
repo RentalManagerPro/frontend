@@ -3,47 +3,44 @@ import { useSession } from "@/libs/auth/context";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { FormField } from "@/components/FormField";
-import { router } from "expo-router";
-import { Pressable, Text, View } from "react-native";
-import { SignUpInput, signUpInputSchema } from "./schema";
+import { CodeDeliveryDetails } from "aws-amplify/auth";
 import { useState } from "react";
-import Credentials from "./components/Credentials";
+import { Text, View } from "react-native";
 import ConfirmationCode from "./components/ConfirmationCode";
+import Credentials from "./components/Credentials";
+import { CredentialsType, credentialsSchema } from "./schema";
 
 enum SignUpStep {
   Credentials,
   ConfirmationCode,
 }
 
-const signUpSteps = [
-  {
-    label: "Credentials",
-    component: Credentials,
-  },
-  {
-    label: "Confirmation Code",
-    component: ConfirmationCode,
-  },
-];
-
 export default function SignIn() {
-  const { signUp, isLoading } = useSession();
+  const { signUp } = useSession();
+  const [isLoading, setIsLoading] = useState(false);
+  const [codeDeliveryDetails, setCodeDeliveryDetails] =
+    useState<CodeDeliveryDetails>({
+      deliveryMedium: "EMAIL",
+      destination: "",
+      attributeName: "email",
+    });
   const [signUpStep, setSignUpStep] = useState<SignUpStep>(
     SignUpStep.Credentials
   );
   const {
     control,
     handleSubmit,
+    getValues,
     formState: { errors },
-  } = useForm<SignUpInput>({
+  } = useForm<CredentialsType>({
     defaultValues: {
       username: "bartlomiej.mikolajczuk+test@outlook.com",
       password: "Password!23",
     },
-    resolver: zodResolver(signUpInputSchema),
+    resolver: zodResolver(credentialsSchema),
   });
-  const onSubmit = async (data: SignUpInput) => {
+  const onSubmit = async (data: CredentialsType) => {
+    setIsLoading(true);
     try {
       const response = await signUp(data.username, data.password);
       console.log(response);
@@ -51,17 +48,28 @@ export default function SignIn() {
     } catch (error) {
       // TODO: handle error and show error notification
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
     <>
-      {signUpSteps[signUpStep].component({
-        control,
-        errors,
-        isLoading,
-        handleSubmit: handleSubmit(onSubmit),
-      })}
-      <View className="flex flex-col items-center justify-center">
+      {(signUpStep === SignUpStep.Credentials && (
+        <Credentials
+          control={control}
+          errors={errors}
+          handleSubmit={handleSubmit(onSubmit)}
+          isLoading={isLoading}
+          buttonTitle="SignUp"
+        />
+      )) ||
+        (signUpStep === SignUpStep.ConfirmationCode && (
+          <ConfirmationCode
+            codeDeliveryDetails={codeDeliveryDetails}
+            getValues={getValues}
+          />
+        ))}
+      <View className="flex flex-col items-center justify-center mt-2">
         <Text className="text-center">
           Already have an account?{" "}
           <StyledLink href="/sign-in" label="Sign in" />

@@ -1,10 +1,13 @@
-// React Native From field styled with tailwind
-
-import { SignUpInput } from "@/app/(auth)/schema";
-import { Control, Controller, FieldError } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldError,
+  FieldPath,
+  FieldValues,
+} from "react-hook-form";
 import { InputModeOptions, Text, TextInput, View } from "react-native";
 
-export function FormField({
+export function FormField<T extends FieldValues>({
   label,
   control,
   name,
@@ -13,8 +16,8 @@ export function FormField({
   isPassword = false,
 }: {
   label: string;
-  control: Control<SignUpInput>;
-  name: keyof SignUpInput;
+  control: Control<T>;
+  name: FieldPath<T>;
   error?: FieldError;
   type: InputModeOptions;
   isPassword?: boolean;

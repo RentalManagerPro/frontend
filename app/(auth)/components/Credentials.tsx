@@ -1,13 +1,13 @@
 import { FormField } from "@/components/FormField";
 import { Control, FieldErrors } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
-import { SignUpInput } from "../schema";
-import { StyledLink } from "@/components/StyledLink";
+import { CredentialsType } from "../schema";
 
 type CredentialsProps = {
-  control: Control<SignUpInput>;
-  errors: FieldErrors<SignUpInput>;
+  control: Control<CredentialsType>;
+  errors: FieldErrors<CredentialsType>;
   isLoading: boolean;
+  buttonTitle: string;
   handleSubmit: () => void;
 };
 
@@ -15,6 +15,7 @@ export default function Credentials({
   control,
   errors,
   isLoading,
+  buttonTitle,
   handleSubmit,
 }: CredentialsProps) {
   return (
@@ -39,7 +40,7 @@ export default function Credentials({
           {isLoading ? (
             <Text className="text-white">Loading...</Text>
           ) : (
-            <Text className="text-white ">SignUp</Text>
+            <Text className="text-white ">{buttonTitle}</Text>
           )}
         </View>
       </Pressable>
