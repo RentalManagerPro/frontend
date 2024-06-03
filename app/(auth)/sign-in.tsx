@@ -17,8 +17,8 @@ export default function SignIn() {
     formState: { errors },
   } = useForm<CredentialsType>({
     defaultValues: {
-      username: "",
-      password: "",
+      username: "test",
+      password: "preview",
     },
     resolver: zodResolver(credentialsSchema),
   });
@@ -46,8 +46,7 @@ export default function SignIn() {
       />
       <View className="flex flex-col items-center justify-center mt-2">
         <Text className="text-center">
-          Don't have an account?{" "}
-          <StyledLink href="/sign-up" label="Sign up" />
+          Don't have an account? <StyledLink href="/sign-up" label="Sign up" />
         </Text>
       </View>
     </>
