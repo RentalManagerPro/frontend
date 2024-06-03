@@ -12,6 +12,7 @@ frontend:
           else
             npm install
           fi
+        - nvm install 10
     build:
       commands:
         - expo build:web
