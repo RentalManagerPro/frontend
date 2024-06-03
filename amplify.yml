@@ -3,11 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install --quiet --global expo-cli
         - npm ci
     build:
       commands:
-        - expo export -p web
+        - npx expo export -p web
   artifacts:
     baseDirectory: dist
     files:
