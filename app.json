@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "frontend",
-    "slug": "frontend",
+    "slug": "renthub",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./images/icon.png",
@@ -34,6 +34,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ca93dec4-a219-4017-9936-169ddec0bdcb"
+      }
+    },
+    "owner": "rentalmanagerpro"
   }
 }
