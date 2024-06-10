@@ -11,6 +11,11 @@ node -v
 npm -v
 ```
 
+## Enable corepack
+```bash
+corepack enable && corepack enable npm
+```
+
 ## Install watchman
 https://facebook.github.io/watchman/docs/install#buildinstall
 
