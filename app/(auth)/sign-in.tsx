@@ -7,6 +7,7 @@ import { Text, View } from "react-native";
 import Credentials from "./components/Credentials";
 import { CredentialsType, credentialsSchema } from "./schema";
 import { useState } from "react";
+import { Button } from "tamagui";
 
 export default function SignIn() {
   const { signIn } = useSession();
@@ -46,8 +47,7 @@ export default function SignIn() {
       />
       <View className="flex flex-col items-center justify-center mt-2">
         <Text className="text-center">
-          Don't have an account?{" "}
-          <StyledLink href="/sign-up" label="Sign up" />
+          Don't have an account? <StyledLink href="/sign-up" label="Sign up" />
         </Text>
       </View>
     </>
