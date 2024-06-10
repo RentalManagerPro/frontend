@@ -13,6 +13,7 @@ import { SessionProvider } from "@/libs/auth/context";
 import { init } from "@/libs/aws-amplify/init";
 
 import "../global.css";
+import Tamagui from "@/libs/tamagui";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -32,6 +33,8 @@ init();
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../fonts/SpaceMono-Regular.ttf"),
+    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
+    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -56,10 +59,12 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <SessionProvider>
-        <Slot />
-      </SessionProvider>
-    </ThemeProvider>
+    <Tamagui>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <SessionProvider>
+          <Slot />
+        </SessionProvider>
+      </ThemeProvider>
+    </Tamagui>
   );
 }
